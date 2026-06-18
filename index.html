@@ -1,192 +1,172 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kintsugi* · стратегии адаптации · неделя 2</title>
-    <style>
-        :root {
-            --bg-vanilla: #f1eada;
-            --text-mahogany: #584738;
-            --accent-gold: #c9a96e;
-            --border-soft: rgba(88, 71, 56, 0.15);
-            --bg-card: rgba(88, 71, 56, 0.03);
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; text-transform: lowercase; }
-        body { background-color: var(--bg-vanilla); color: var(--text-mahogany); line-height: 1.8; padding: 40px 24px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
-        .poster-container { width: 100%; max-width: 760px; background-color: var(--bg-vanilla); border: 1px solid var(--border-soft); padding: 60px 48px; display: flex; flex-direction: column; gap: 50px; position: relative; box-shadow: 0 12px 40px rgba(88, 71, 56, 0.05); border-radius: 4px; }
-        @media (max-width: 600px) { body { padding: 16px 8px; } .poster-container { padding: 40px 20px; gap: 40px; } }
-        header { border-bottom: 1px solid var(--border-soft); padding-bottom: 30px; text-align: center; }
-        .brand-meta { font-size: 0.85rem; letter-spacing: 0.2em; opacity: 0.7; margin-bottom: 12px; }
-        h1 { font-size: 2.2rem; font-weight: 300; letter-spacing: -0.02em; line-height: 1.2; color: var(--text-mahogany); margin-bottom: 8px; }
-        .subtitle { font-size: 1.1rem; letter-spacing: 0.05em; opacity: 0.8; }
-        .manifesto-box { text-align: center; max-width: 600px; margin: 0 auto; }
-        .manifesto-lead { font-size: 1.25rem; font-weight: 400; line-height: 1.6; margin-bottom: 12px; }
-        .manifesto-sub { font-size: 0.95rem; opacity: 0.65; }
-        .reaction-flow { background: var(--bg-card); border: 1px solid var(--border-soft); border-radius: 6px; padding: 30px; }
-        .flow-title { font-size: 0.9rem; letter-spacing: 0.1em; opacity: 0.8; margin-bottom: 24px; text-align: center; border-bottom: 1px solid var(--border-soft); padding-bottom: 10px; }
-        .flow-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 16px; text-align: center; }
-        @media (max-width: 600px) { .flow-grid { grid-template-columns: 1fr; gap: 24px; } .flow-arrow { transform: rotate(90deg); margin: 8px 0; } }
-        .flow-card { padding: 16px; border-radius: 4px; background: rgba(255,255,255,0.4); border: 1px solid rgba(88,71,56,0.05); }
-        .flow-step { font-size: 0.75rem; letter-spacing: 0.1em; opacity: 0.5; margin-bottom: 8px; }
-        .flow-name { font-size: 1rem; font-weight: 500; margin-bottom: 6px; }
-        .flow-desc { font-size: 0.85rem; opacity: 0.7; line-height: 1.4; }
-        .flow-arrow { font-size: 1.5rem; color: var(--accent-gold); opacity: 0.8; user-select: none; }
-        .strategies-section { display: flex; flex-direction: column; gap: 24px; }
-        .section-label { font-size: 0.9rem; letter-spacing: 0.15em; opacity: 0.8; border-bottom: 1px solid var(--border-soft); padding-bottom: 12px; margin-bottom: 8px; }
-        .strategy-row { display: grid; grid-template-columns: 140px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px dashed var(--border-soft); }
-        @media (max-width: 600px) { .strategy-row { grid-template-columns: 1fr; gap: 12px; padding: 16px 0; } }
-        .strategy-title-box { display: flex; flex-direction: column; gap: 4px; }
-        .strategy-title { font-size: 1.2rem; font-weight: 500; letter-spacing: 0.05em; }
-        .strategy-meta { font-size: 0.75rem; color: var(--accent-gold); letter-spacing: 0.1em; }
-        .strategy-details { display: flex; flex-direction: column; gap: 12px; }
-        .detail-item { font-size: 0.95rem; }
-        .detail-item strong { font-weight: 500; opacity: 0.7; display: inline-block; width: 75px; }
-        .price-box { background: rgba(199,169,110,0.08); border-left: 2px solid var(--accent-gold); padding: 24px 30px; border-radius: 0 6px 6px 0; }
-        .price-title { font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 12px; font-weight: 500; }
-        .price-list { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.95rem; opacity: 0.85; }
-        .price-list li { position: relative; padding-left: 16px; }
-        .price-list li::before { content: "·"; position: absolute; left: 0; color: var(--accent-gold); font-weight: bold; }
-        .questions-box { display: flex; flex-direction: column; gap: 20px; }
-        .question-item { display: flex; gap: 20px; align-items: flex-start; }
-        .question-num { font-size: 0.9rem; font-weight: 500; color: var(--accent-gold); letter-spacing: 0.1em; padding-top: 3px; }
-        .question-text { font-size: 1rem; opacity: 0.9; }
-        .practice-container { border: 1px solid var(--border-soft); border-radius: 6px; padding: 30px; text-align: center; background: var(--bg-card); display: flex; flex-direction: column; align-items: center; gap: 20px; }
-        .practice-title { font-size: 1.1rem; letter-spacing: 0.1em; font-weight: 400; }
-        .practice-focus { font-size: 0.85rem; opacity: 0.6; letter-spacing: 0.05em; }
-        .btn-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
-        .btn-primary { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; background: var(--text-mahogany); color: var(--bg-vanilla); border-radius: 40px; font-size: 0.9rem; letter-spacing: 0.05em; text-decoration: none; transition: background 0.2s ease; }
-        .btn-primary:hover { background: var(--accent-gold); }
-        .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 13px 30px; background: transparent; color: var(--text-mahogany); border: 1px solid var(--text-mahogany); border-radius: 40px; font-size: 0.9rem; letter-spacing: 0.05em; text-decoration: none; transition: all 0.2s ease; }
-        .btn-outline:hover { background: var(--text-mahogany); color: var(--bg-vanilla); }
-        footer { border-top: 1px solid var(--border-soft); padding-top: 35px; text-align: center; display: flex; flex-direction: column; gap: 12px; }
-        .footer-quote { font-size: 1.15rem; letter-spacing: 0.05em; font-weight: 300; }
-        .footer-meta { font-size: 0.8rem; letter-spacing: 0.15em; opacity: 0.5; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>психосоматика · kintsugi*</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #F1EADA; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; padding: 40px 24px; display: flex; justify-content: center; }
+  .container { width: 100%; max-width: 680px; display: flex; flex-direction: column; gap: 28px; }
+  .header { text-align: center; padding-bottom: 32px; border-bottom: 1px solid rgba(88,71,56,0.15); }
+  .header-brand { font-size: 11px; letter-spacing: 4px; color: #C9A96E; margin-bottom: 12px; }
+  .header-title { font-family: Georgia, serif; font-size: 2rem; font-weight: normal; color: #3D2E22; margin-bottom: 8px; }
+  .header-sub { font-size: 0.85rem; color: #584738; opacity: 0.7; line-height: 1.6; }
+  .card { background: #fff; border-radius: 8px; padding: 32px; border: 1px solid rgba(88,71,56,0.08); box-shadow: 0 4px 20px rgba(88,71,56,0.04); }
+  .card-tag { font-size: 10px; letter-spacing: 3px; color: #C9A96E; margin-bottom: 16px; }
+  .card-symptom { font-family: Georgia, serif; font-size: 1.5rem; font-weight: normal; color: #3D2E22; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid rgba(201,169,110,0.3); }
+  .card-body-label { font-size: 10px; letter-spacing: 2px; color: #C9A96E; margin-bottom: 10px; }
+  .card-body-text { font-size: 0.95rem; color: #584738; line-height: 1.75; margin-bottom: 24px; }
+  .card-quote { display: flex; gap: 14px; margin-bottom: 24px; }
+  .card-quote-bar { width: 2px; background: #C9A96E; flex-shrink: 0; border-radius: 1px; }
+  .card-quote-text { font-family: Georgia, serif; font-size: 0.95rem; font-style: italic; color: #584738; line-height: 1.7; }
+  .card-question { background: rgba(201,169,110,0.06); border-radius: 6px; padding: 16px 20px; }
+  .card-question-label { font-size: 10px; letter-spacing: 2px; color: #C9A96E; margin-bottom: 8px; }
+  .card-question-text { font-size: 0.9rem; color: #3D2E22; line-height: 1.65; }
+  .disclaimer { text-align: center; padding-top: 24px; border-top: 1px solid rgba(88,71,56,0.1); }
+  .disclaimer-text { font-size: 0.78rem; color: #584738; opacity: 0.55; line-height: 1.7; max-width: 500px; margin: 0 auto 10px; }
+  .footer-brand { font-size: 10px; letter-spacing: 3px; color: #C9A96E; }
+  @media (max-width: 600px) { body { padding: 20px 12px; } .card { padding: 24px 20px; } }
+</style>
 </head>
 <body>
-    <div class="poster-container">
-        <header>
-            <div class="brand-meta">виктория голдберг · kintsugi* · неделя 2</div>
-            <h1>стратегии адаптации</h1>
-            <div class="subtitle">бей · беги · замри · угодничество</div>
-        </header>
+<div class="container">
 
-        <section class="manifesto-box">
-            <p class="manifesto-lead">тело выбирает защиту мгновенно.</p>
-            <p class="manifesto-sub">это не черта характера. это древние эволюционные программы выживания, встроенные в нашу физиологию.</p>
-        </section>
+  <div class="header">
+    <div class="header-brand">K I N T S U G I *</div>
+    <h1 class="header-title">тело говорит</h1>
+    <p class="header-sub">не расшифровка и не диагноз.<br>наблюдение — как отправная точка для разговора с собой.</p>
+  </div>
 
-        <section class="reaction-flow">
-            <div class="flow-title">биологический цикл реакции</div>
-            <div class="flow-grid">
-                <div class="flow-card">
-                    <div class="flow-step">шаг 01</div>
-                    <div class="flow-name">триггер</div>
-                    <div class="flow-desc">чтение сообщений, контакт с оценкой, ожидание</div>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-card">
-                    <div class="flow-step">шаг 02</div>
-                    <div class="flow-name">физиология</div>
-                    <div class="flow-desc">мгновенно: дыхание, пульс, зажим челюсти</div>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-card">
-                    <div class="flow-step">шаг 03</div>
-                    <div class="flow-name">когниция</div>
-                    <div class="flow-desc">с задержкой: мысли, эмоции, объяснения</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="strategies-section">
-            <div class="section-label">картотека эволюционных сценариев</div>
-            <div class="strategy-row">
-                <div class="strategy-title-box">
-                    <div class="strategy-title">бей</div>
-                    <div class="strategy-meta">мобилизация</div>
-                </div>
-                <div class="strategy-details">
-                    <div class="detail-item"><strong>в теле:</strong> челюсть крепко сжата, плечи подняты к ушам, внутренний гул, каменная статика.</div>
-                    <div class="detail-item"><strong>в языке:</strong> маркеры конкуренции и тотального долга: «я должна», «надо доказать», «во что бы то ни стало».</div>
-                </div>
-            </div>
-            <div class="strategy-row">
-                <div class="strategy-title-box">
-                    <div class="strategy-title">беги</div>
-                    <div class="strategy-meta">суета и уход</div>
-                </div>
-                <div class="strategy-details">
-                    <div class="detail-item"><strong>в теле:</strong> потеря опоры под ногами, поверхностное дыхание, хаотичные микро-движения, суета.</div>
-                    <div class="detail-item"><strong>в языке:</strong> хаотичная смена тем в разговоре, переключение вкладок, бесконечное «потом разберусь».</div>
-                </div>
-            </div>
-            <div class="strategy-row">
-                <div class="strategy-title-box">
-                    <div class="strategy-title">замри</div>
-                    <div class="strategy-meta">анестезия</div>
-                </div>
-                <div class="strategy-details">
-                    <div class="detail-item"><strong>в теле:</strong> взгляд стекленеет, фоновое онемение, тяжесть в плечах, дыхания почти не слышно.</div>
-                    <div class="detail-item"><strong>в языке:</strong> глухие паузы, прокрастинация в ответах, дежурные фразы: «мне всё равно», «я не знаю».</div>
-                </div>
-            </div>
-            <div class="strategy-row">
-                <div class="strategy-title-box">
-                    <div class="strategy-title">угодничество</div>
-                    <div class="strategy-meta">fawn · подстройка</div>
-                </div>
-                <div class="strategy-details">
-                    <div class="detail-item"><strong>в теле:</strong> корпус наклонен вперед, дежурная улыбка (до боли в мышцах лица), холодеющие конечности.</div>
-                    <div class="detail-item"><strong>в языке:</strong> режим идеального собеседника, заполнение любой паузы, угодничество: «как вам удобно».</div>
-                </div>
-            </div>
-        </section>
-
-        <section class="price-box">
-            <div class="price-title">цена автоматической защиты</div>
-            <ul class="price-list">
-                <li>странная, тяжелая усталость сразу после контакта.</li>
-                <li>фоновое раздражение на собеседника после формально «хорошей» встречи.</li>
-                <li>ощущение себя выжатой из-за создания искусственной химии.</li>
-            </ul>
-        </section>
-
-        <section class="questions-box">
-            <div class="section-label">вопросы для тихого наблюдения</div>
-            <div class="question-item">
-                <div class="question-num">01</div>
-                <div class="question-text">какая из стратегий включается у меня чаще всего при малейшем дискомфорте?</div>
-            </div>
-            <div class="question-item">
-                <div class="question-num">02</div>
-                <div class="question-text">в какой момент удалось поймать физический импульс тела до того, как включились мысли и объяснения?</div>
-            </div>
-            <div class="question-item">
-                <div class="question-num">03</div>
-                <div class="question-text">что меняется, если перестать ругать себя за лень или раздражение, признав их биологической защитой тела?</div>
-            </div>
-        </section>
-
-        <section class="practice-container">
-            <div class="practice-title">аудио-практика заземления</div>
-            <div class="practice-focus">фокус: опора и выдох · без подготовки · в любой момент дня</div>
-            <p class="manifesto-sub">отклониться назад. отпустить дежурную улыбку. вернуться в своё тело.</p>
-            <div class="btn-row">
-                <a href="https://t.me/c/3762703923/36/171" target="_blank" class="btn-primary">
-                    слушать практику
-                </a>
-                <a href="2.стратегии-адаптации-kintsugi.pdf" download class="btn-outline">
-                    скачать конспект
-                </a>
-            </div>
-        </section>
-
-        <footer>
-            <div class="footer-quote">первый шаг — не изменить. первый шаг — заметить.</div>
-            <div class="footer-meta">kintsugi* · неделя 2 · виктория голдберг · рефлексия.fm</div>
-        </footer>
+  <div class="card">
+    <div class="card-tag">симптом 01</div>
+    <div class="card-symptom">головная боль · мигрень</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">голова часто напоминает о себе в моменты перегрузки — когда много контролируется, много удерживается и мало выражается. подавленное раздражение, невозможность сказать «нет», хронический самоконтроль.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">тело сжимает то, что не было сказано вслух.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">когда появляется боль — что происходило незадолго до этого? было ли что-то, что хотелось сказать — и не получилось?</div>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 02</div>
+    <div class="card-symptom">горло · ком · першение</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">горло — место где слово либо выходит, либо задерживается. першение, ком, частые ангины нередко появляются там, где есть что сказать — но по каким-то причинам это не произносится. страх оценки, привычка молчать, ощущение что голос не будет услышан.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">невысказанное остаётся в теле — и просит внимания иначе.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">есть ли что-то что давно хочется произнести вслух — и не происходит? в каких ситуациях горло сжимается сильнее всего?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 03</div>
+    <div class="card-symptom">спина · поясница</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">спина держит нас прямо — и в буквальном, и в переносном смысле. напряжение в спине часто появляется там, где много несётся на себе — ответственности, тревоги за будущее, ощущения что опоры нет или она шаткая. поясница особенно — про финансовую и бытовую нестабильность.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">тело несёт то, что психика ещё не разложила по местам.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">что сейчас держится на вас — и кажется слишком тяжёлым? есть ли ощущение что под вами твёрдая почва, или что-то шатается?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 04</div>
+    <div class="card-symptom">бессонница</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">ум не отпускает то, что не завершено — реальные или воображаемые разговоры, незакрытые ситуации, тревога о будущем. бессонница часто приходит тогда, когда что-то важное остаётся в подвешенном состоянии — и тело не может позволить себе выдохнуть.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">сон приходит туда, где есть ощущение безопасности.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">о чём думается в те минуты когда сон не приходит? что именно удерживается — тревога о будущем, незаконченный разговор, ощущение что что-то не так?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 05</div>
+    <div class="card-symptom">желудок · изжога · тяжесть</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">желудок реагирует на то, что сложно «переварить» — ситуацию, человека, решение. подавленная агрессия, нарушенные границы, накопленное раздражение которому некуда выйти. изжога нередко появляется там, где что-то внутри не принято и не усвоено.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">тело переваривает то, что ум предпочёл не замечать.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">есть ли в жизни прямо сейчас что-то что сложно принять — ситуация, поведение близкого, собственное решение? когда желудок беспокоит сильнее всего?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 06</div>
+    <div class="card-symptom">дыхание · грудь · ощущение зажатости</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">дыхание — самый быстрый индикатор состояния. оно меняется раньше мысли. ощущение что «невозможно вдохнуть полной грудью» нередко связано с тревогой, страхом занимать место, чувством что жить так как хочется — недостаточно безопасно.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">выдох — это разрешение себе занять пространство.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">в какие моменты дыхание становится поверхностным или задерживается? есть ли ощущение что в какой-то области жизни «не хватает воздуха»?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 07</div>
+    <div class="card-symptom">кожа · сыпь · раздражение</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">кожа — граница между нами и миром. когда эта граница нарушается — изнутри или снаружи — тело может реагировать воспалением, сыпью, зудом. подавленные эмоции которые ищут выход, ощущение что «меня не принимают таким как есть», желание дистанции.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">кожа показывает то, что внутри давно просит выйти.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">когда кожа реагирует острее — в каком контексте, рядом с кем, в какие периоды? есть ли ощущение что где-то нарушена граница — и это не называется вслух?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 08</div>
+    <div class="card-symptom">сердце · тахикардия · тревога в груди</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">сердце ускоряется в моменты, когда что-то важное — под угрозой или под вопросом. ощущение тревоги в груди, учащённый пульс без физической нагрузки нередко сигналят об эмоциональных перегрузках, о том что жизнь проживается не в своём ритме.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">сердце торопится там, где ум ещё не разрешил замедлиться.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">есть ли ощущение что живёте в чужом темпе — слишком быстро, слишком много, не своё? в какие моменты сердце буквально «не на месте»?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 09</div>
+    <div class="card-symptom">женское здоровье · цикл · напряжение</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">женское тело особенно чутко к тому, как проживается женственность — принимается ли она, есть ли место для своих желаний, как выстроены отношения с собственной природой. сбои цикла, воспаления, болезненность нередко появляются в периоды внутреннего конфликта или непринятия себя.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">тело отражает то, как мы относимся к самим себе.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">есть ли что-то в себе — в своей женственности, своих желаниях, своей природе — что сложно принять или на что сложно дать себе право?</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-tag">симптом 10</div>
+    <div class="card-symptom">фоновая усталость</div>
+    <div class="card-body-label">что может стоять за этим</div>
+    <div class="card-body-text">усталость которая не проходит после сна — особый сигнал. она редко про физическую нагрузку. чаще — про хроническое напряжение от необходимости быть правильной, удобной, контролирующей. тело устаёт держать то, что накапливается годами без разрядки.</div>
+    <div class="card-quote"><div class="card-quote-bar"></div><div class="card-quote-text">усталость — это не слабость. это накопленное, которое ждёт внимания.</div></div>
+    <div class="card-question">
+      <div class="card-question-label">вопрос для наблюдения</div>
+      <div class="card-question-text">от чего именно устаёте — от действий или от необходимости постоянно соответствовать? есть ли что-то в жизни прямо сейчас что забирает энергию тихо, фоново, незаметно?</div>
+    </div>
+  </div>
+
+  <div style="text-align: center;">
+    <a href="психосоматика-kintsugi.pdf" download style="display: inline-flex; align-items: center; padding: 14px 36px; background: #584738; color: #F1EADA; border-radius: 40px; font-size: 0.9rem; letter-spacing: 0.05em; text-decoration: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;">скачать PDF</a>
+  </div>
+
+  <div class="disclaimer">
+    <p class="disclaimer-text">это не медицинский документ и не замена диагностике. тело сложнее любой схемы. эти карточки — приглашение к наблюдению за собой, не руководство к самолечению. при любых симптомах — обращайтесь к врачу.</p>
+    <div class="footer-brand">K I N T S U G I * · рефлексия.fm · виктория голдберг</div>
+  </div>
+
+</div>
 </body>
 </html>
